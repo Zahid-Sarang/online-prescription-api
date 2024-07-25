@@ -30,6 +30,7 @@ export class AuthController {
         res.cookie("accessToken", accessToken, {
             domain: Config.MAIN_DOMAIN,
             sameSite: "none",
+            secure: true,
             maxAge: 1000 * 60 * 60,
             httpOnly: true,
         });
@@ -37,6 +38,7 @@ export class AuthController {
         res.cookie("refreshToken", refreshToken, {
             domain: Config.MAIN_DOMAIN,
             sameSite: "none",
+            secure: true,
             maxAge: 1000 * 60 * 60 * 24 * 365,
             httpOnly: true,
         });
