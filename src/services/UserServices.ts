@@ -5,6 +5,7 @@ import { UserData } from "../types";
 export class UserService {
     constructor() {}
     async create({
+        profilePicture,
         name,
         specialty,
         email,
@@ -28,6 +29,7 @@ export class UserService {
         const hashedPassword = await bcryptjs.hash(password, saltRounds);
         try {
             return await User.create({
+                profilePicture,
                 name,
                 specialty,
                 email,

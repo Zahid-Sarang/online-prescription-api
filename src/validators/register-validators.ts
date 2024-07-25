@@ -1,10 +1,10 @@
 import { body } from "express-validator";
 
 export default [
-    // body("profilePicture").custom((value, { req }) => {
-    //     if (!req.files) throw new Error("Product image is required");
-    //     return true;
-    // }),
+    body("profilePicture").custom((value, { req }) => {
+        if (!req.files) throw new Error("Product image is required");
+        return true;
+    }),
     body("name")
         .exists()
         .withMessage("Name is required")

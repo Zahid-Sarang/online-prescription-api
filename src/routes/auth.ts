@@ -10,22 +10,38 @@ import { CredentialService } from "../services/CredentialService";
 import authenticate from "../middleware/authenticate";
 import validateRefreshToken from "../middleware/validateRefreshToken";
 import { canAccess } from "../middleware/canAccess";
+import { S3Storage } from "../services/S3Storage";
+import fileUpload from "express-fileupload";
+import createHttpError from "http-errors";
 
 const router = express.Router();
 
 const userService = new UserService();
 const tokenService = new TokenService();
 const credentialsService = new CredentialService();
+const s3Storage = new S3Storage();
 const authController = new AuthController(
     userService,
     logger,
     tokenService,
     credentialsService,
+    s3Storage,
 );
 
 // Create Users Route (patient and doctor)
 router.post(
     "/register",
+    fileUpload({
+        limits: { fileSize: 5000 * 1024 },
+        abortOnLimit: true,
+        limitHandler: (req, res, next) => {
+            const error = createHttpError(
+                400,
+                "File Size exceeds the maximum limit",
+            );
+            next(error);
+        },
+    }),
     registerValidators,
     (req: RegisterUserRequest, res: Response, next: NextFunction) =>
         authController.register(req, res, next),

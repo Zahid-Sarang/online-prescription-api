@@ -3,10 +3,13 @@ import { validationResult } from "express-validator";
 import createHttpError from "http-errors";
 import { JwtPayload } from "jsonwebtoken";
 import { Logger } from "winston";
+import { v4 as uuidv4 } from "uuid";
 import { CredentialService } from "../services/CredentialService";
 import { TokenService } from "../services/TokenService";
 import { UserService } from "../services/UserServices";
 import { AuthRequest, RegisterUserRequest } from "../types";
+import { FileStorage } from "../types/storage";
+import { UploadedFile } from "express-fileupload";
 
 export class AuthController {
     constructor(
@@ -14,6 +17,7 @@ export class AuthController {
         private logger: Logger,
         private tokenService: TokenService,
         private credentialsService: CredentialService,
+        private storage: FileStorage,
     ) {}
 
     private generateCookies(
@@ -45,6 +49,16 @@ export class AuthController {
         if (!validationError.isEmpty()) {
             return res.status(400).json({ error: validationError.array() });
         }
+
+        // Create a new users
+        // upload image to s3 bucket
+        const image = req.files!.profilePicture as UploadedFile;
+        const imageName = uuidv4();
+        await this.storage.upload({
+            fileName: imageName,
+            fileData: image.data.buffer,
+        });
+
         const {
             name,
             specialty,
@@ -57,8 +71,11 @@ export class AuthController {
             historyOfIllness,
             role,
         } = req.body;
+
+        // Save users in database
         try {
             const user = await this.userService.create({
+                profilePicture: imageName,
                 name,
                 specialty,
                 email,
@@ -98,6 +115,7 @@ export class AuthController {
         }
     }
 
+    // Login Endpoint
     async login(req: RegisterUserRequest, res: Response, next: NextFunction) {
         // validation
         const validationError = validationResult(req);
@@ -162,6 +180,7 @@ export class AuthController {
         }
     }
 
+    // Get Self Information
     async self(req: AuthRequest, res: Response, next: NextFunction) {
         try {
             const userInfo = await this.userService.findById(req.auth.sub);
@@ -176,6 +195,7 @@ export class AuthController {
         }
     }
 
+    // Refresh Tokens
     async refresh(req: AuthRequest, res: Response, next: NextFunction) {
         try {
             const payload: JwtPayload = {
@@ -215,6 +235,7 @@ export class AuthController {
         }
     }
 
+    // get Doctors information
     async getUser(req: Request, res: Response, next: NextFunction) {
         try {
             const usersList = await this.userService.getUsersList();

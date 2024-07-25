@@ -14,6 +14,10 @@ const {
     ACCESS_TOKEN_SECRET,
     REFRESH_TOKEN_SECRET,
     APP_URL,
+    S3_ACCESS_KEY,
+    S3_KEY_SECRET,
+    S3_REGION,
+    S3_Bucket,
 } = process.env;
 
 export const Config = {
@@ -23,4 +27,8 @@ export const Config = {
     ACCESS_TOKEN_SECRET,
     REFRESH_TOKEN_SECRET,
     APP_URL,
+    S3_ACCESS_KEY,
+    S3_KEY_SECRET,
+    S3_REGION,
+    S3_Bucket,
 };
