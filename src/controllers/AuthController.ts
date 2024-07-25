@@ -11,6 +11,7 @@ import { AuthRequest, RegisterUserRequest } from "../types";
 import { FileStorage } from "../types/storage";
 import { UploadedFile } from "express-fileupload";
 import { IUser } from "../models/UserSchema";
+import { Config } from "../config";
 
 export class AuthController {
     constructor(
@@ -27,15 +28,15 @@ export class AuthController {
         refreshToken: string,
     ) {
         res.cookie("accessToken", accessToken, {
-            domain: "localhost",
-            sameSite: "strict",
+            domain: Config.MAIN_DOMAIN,
+            sameSite: "none",
             maxAge: 1000 * 60 * 60,
             httpOnly: true,
         });
 
         res.cookie("refreshToken", refreshToken, {
-            domain: "localhost",
-            sameSite: "strict",
+            domain: Config.MAIN_DOMAIN,
+            sameSite: "none",
             maxAge: 1000 * 60 * 60 * 24 * 365,
             httpOnly: true,
         });

@@ -6,11 +6,12 @@ import { HttpError } from "http-errors";
 import logger from "./config/logger";
 import authRouter from "./routes/auth";
 import consultationRouter from "./routes/Consultation";
+import { Config } from "./config";
 
 const app = express();
 const corsOptions = {
     credentials: true,
-    origin: "http://localhost:5173",
+    origin: Config.FRONTEND_URL,
 };
 app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: false }));

@@ -18,6 +18,8 @@ const {
     S3_KEY_SECRET,
     S3_REGION,
     S3_Bucket,
+    FRONTEND_URL,
+    MAIN_DOMAIN,
 } = process.env;
 
 export const Config = {
@@ -31,4 +33,6 @@ export const Config = {
     S3_KEY_SECRET,
     S3_REGION,
     S3_Bucket,
+    FRONTEND_URL,
+    MAIN_DOMAIN,
 };
