@@ -56,9 +56,6 @@ export class UserService {
     }
 
     async getUsersList() {
-        return await User.find({ role: "doctor" }).select([
-            "-password",
-            "-__v",
-        ]);
+        return await User.find({ role: "doctor" });
     }
 }

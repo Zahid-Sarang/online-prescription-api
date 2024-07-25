@@ -35,3 +35,16 @@ export interface AuthRequest extends Request {
 export interface IRefreshTokenPayload {
     id: string;
 }
+
+export interface Consultation {
+    patientId: string;
+    doctorId: string;
+    currentIllnessHistory: string;
+    recentSurgery: string;
+    familyMedicalHistory: string;
+    prescription?: string;
+}
+
+export interface ConsultationRequest extends Request {
+    body: Consultation;
+}

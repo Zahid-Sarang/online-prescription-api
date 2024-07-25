@@ -34,9 +34,16 @@ export class S3Storage implements FileStorage {
         }
     }
     delete(filename: string): Promise<void> {
-        throw new Error("Method not implemented." + filename);
+        throw new Error("delete not implemented" + filename);
     }
     getObjectUri(filename: string): string {
-        throw new Error("Method not implemented." + filename);
+        const bucket = Config.S3_Bucket!;
+        const region = Config.S3_REGION!;
+
+        if (typeof bucket === "string" && typeof region === "string") {
+            return `https://${bucket}.s3.${region}.amazonaws.com/${filename}`;
+        }
+        const error = createHttpError(500, "Invalid S3 configuration");
+        throw error;
     }
 }

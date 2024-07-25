@@ -10,6 +10,7 @@ import { UserService } from "../services/UserServices";
 import { AuthRequest, RegisterUserRequest } from "../types";
 import { FileStorage } from "../types/storage";
 import { UploadedFile } from "express-fileupload";
+import { IUser } from "../models/UserSchema";
 
 export class AuthController {
     constructor(
@@ -239,9 +240,47 @@ export class AuthController {
     async getUser(req: Request, res: Response, next: NextFunction) {
         try {
             const usersList = await this.userService.getUsersList();
-            res.json(usersList);
+
+            const finalUsers = usersList.map((user: IUser) => {
+                const userObj = user.toObject() as IUser; // Convert Mongoose document to plain object
+
+                return {
+                    _id: userObj._id,
+                    profilePicture: this.storage.getObjectUri(
+                        userObj.profilePicture!,
+                    ),
+                    name: userObj.name,
+                    email: userObj.email,
+                    phoneNumber: userObj.phoneNumber,
+                    age: userObj.age,
+                    historyOfSurgery: userObj.historyOfSurgery,
+                    historyOfIllness: userObj.historyOfIllness,
+                    role: userObj.role,
+                    specialty: userObj.specialty,
+                };
+            });
+
+            res.json(finalUsers); // Return JSON response with mapped data
+        } catch (err) {
+            next(err); // Forward error to error handler middleware
+        }
+    }
+
+    // logout
+    async logout(req: AuthRequest, res: Response, next: NextFunction) {
+        try {
+            await this.tokenService.deleteRefreshToken(req.auth.id!);
+            this.logger.info("Refresh token has been deleted", {
+                id: req.auth.id,
+            });
+            this.logger.info("User has been logged out", { id: req.auth.sub });
+
+            res.clearCookie("accessToken");
+            res.clearCookie("refreshToken");
+            res.json({ message: "Sucessfully logged out" });
         } catch (err) {
             next(err);
+            return;
         }
     }
 }

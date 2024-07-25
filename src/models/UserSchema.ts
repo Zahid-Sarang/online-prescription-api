@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema, Model } from "mongoose";
 
-interface IUser extends Document {
+export interface IUser extends Document {
     _id?: mongoose.Types.ObjectId;
     profilePicture?: string;
     name: string;
@@ -44,7 +44,6 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
         phoneNumber: {
             type: String,
             required: true,
-            unique: true,
             trim: true,
             match: [/^\d{10}$/, "is invalid"],
         },

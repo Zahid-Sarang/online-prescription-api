@@ -13,6 +13,7 @@ import { canAccess } from "../middleware/canAccess";
 import { S3Storage } from "../services/S3Storage";
 import fileUpload from "express-fileupload";
 import createHttpError from "http-errors";
+import parseRefreshToken from "../middleware/parseRefreshToken";
 
 const router = express.Router();
 
@@ -74,6 +75,14 @@ router.get(
     canAccess(["patient"]),
     (req: Request, res: Response, next: NextFunction) =>
         authController.getUser(req, res, next),
+);
+
+router.post(
+    "/logout",
+    authenticate,
+    parseRefreshToken,
+    (req: Request, res: Response, next: NextFunction) =>
+        authController.logout(req as AuthRequest, res, next),
 );
 
 export default router;

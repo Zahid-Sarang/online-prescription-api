@@ -5,11 +5,12 @@ import { HttpError } from "http-errors";
 
 import logger from "./config/logger";
 import authRouter from "./routes/auth";
+import consultationRouter from "./routes/Consultation";
 
 const app = express();
 const corsOptions = {
     credentials: true,
-    origin: "http://localhost:3000",
+    origin: "http://localhost:5173",
 };
 app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: false }));
@@ -20,6 +21,7 @@ app.get("/", async (req, res) => {
 });
 
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/consultation", consultationRouter);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {

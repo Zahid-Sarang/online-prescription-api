@@ -7,7 +7,7 @@ import { UserData } from "../types";
 export class TokenService {
     generateAccessToken(payload: JwtPayload) {
         const accessToken = sign(payload, Config.ACCESS_TOKEN_SECRET!, {
-            expiresIn: "1m",
+            expiresIn: "1y",
         });
 
         return accessToken;
