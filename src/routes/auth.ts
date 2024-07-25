@@ -53,9 +53,9 @@ router.post(
 );
 
 router.get(
-    "/getUsers",
+    "/getDoctors",
     authenticate,
-    canAccess(["admin"]),
+    canAccess(["patient"]),
     (req: Request, res: Response, next: NextFunction) =>
         authController.getUser(req, res, next),
 );

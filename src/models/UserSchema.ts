@@ -93,7 +93,7 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
 
 // Create indexes
 userSchema.index({ email: 1 }, { unique: true });
-userSchema.index({ phoneNumber: 1 }, { unique: true });
+userSchema.index({ role: 1 }, { unique: true });
 
 // Model initialization
 const User: Model<IUser> = mongoose.model<IUser>("User", userSchema);
