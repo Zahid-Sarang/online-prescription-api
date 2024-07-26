@@ -1,6 +1,7 @@
 import { NextFunction, Response } from "express";
-import { ConsultationRequest } from "../types";
+import { AuthRequest, ConsultationRequest } from "../types";
 import { ConsultationService } from "../services/Consultation";
+import createHttpError from "http-errors";
 
 export class ConsultationController {
     constructor(private consultationService: ConsultationService) {}
@@ -40,6 +41,27 @@ export class ConsultationController {
                 await this.consultationService.create(consultation);
 
             res.json(newConsultation);
+        } catch (err) {
+            next(err);
+        }
+    }
+
+    async getConsultation(req: AuthRequest, res: Response, next: NextFunction) {
+        try {
+            const { role, sub: doctorId } = req.auth;
+
+            if (role === "patient") {
+                return next(
+                    createHttpError(
+                        403,
+                        "You do not have permission to access this data.",
+                    ),
+                );
+            }
+
+            const consultationData =
+                await this.consultationService.getConsultation(doctorId);
+            res.json(consultationData);
         } catch (err) {
             next(err);
         }

@@ -7,4 +7,8 @@ export class ConsultationService {
     async create(consultation: Consultation) {
         return await ConsultationForm.create(consultation);
     }
+
+    async getConsultation(doctorId: string) {
+        return await ConsultationForm.find({ doctorId });
+    }
 }
