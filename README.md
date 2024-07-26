@@ -1,18 +1,26 @@
 # Online Prescription Platform
 
 ### FrontEnd_URL: https://online-prescription-ui.vercel.app/
+#### Patients Login
 - login email: rahul@gmail.com
 - login password: password
+
+ #### Doctors Login
+ -  email: "emily@gmail.com",
+    password: "password"
 <img width="1645" alt="Screenshot 2024-07-25 at 7 51 43 PM" src="https://github.com/user-attachments/assets/69c8dc77-5aef-4b45-8428-35a4eb79021c">
 <img width="1600" alt="Screenshot 2024-07-25 at 7 52 21 PM" src="https://github.com/user-attachments/assets/fb8fc4dd-8452-4b27-9528-dd3e53e5bcb0">
 
 <img width="1043" alt="Screenshot 2024-07-25 at 7 52 30 PM" src="https://github.com/user-attachments/assets/683c1920-c385-40c9-a149-56f30d824f4a">
 <img width="918" alt="Screenshot 2024-07-25 at 7 52 45 PM" src="https://github.com/user-attachments/assets/0daceb38-648b-4afe-a2cd-f04dc07080a0">
 <img width="1216" alt="Screenshot 2024-07-25 at 8 01 09 PM" src="https://github.com/user-attachments/assets/a772b261-9dc9-4c0a-9a21-569f1ff0bded">
+<img width="1676" alt="Screenshot 2024-07-26 at 6 13 54 PM" src="https://github.com/user-attachments/assets/0798426a-69c5-4bc8-b73e-34e6d8ac3f13">
+<img width="1675" alt="Screenshot 2024-07-26 at 6 14 10 PM" src="https://github.com/user-attachments/assets/5842872f-98aa-4c0f-ab5f-6f3ece409b79">
+
 
 ### BackEnd_URL: https://online-prescription-api.onrender.com/
 
-### video Link: https://drive.google.com/file/d/14F_bhZKty0BYpI0LFyXGNKknf8SxwqCP/view
+### Video Link: https://drive.google.com/file/d/14F_bhZKty0BYpI0LFyXGNKknf8SxwqCP/view
 
 
 ## Table of Contents
