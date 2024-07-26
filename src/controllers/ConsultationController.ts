@@ -32,10 +32,8 @@ export class ConsultationController {
                 patientId,
                 doctorId,
                 currentIllnessHistory,
-                recentSurgery: JSON.parse(recentSurgery) as string,
-                familyMedicalHistory: JSON.parse(
-                    familyMedicalHistory,
-                ) as string,
+                recentSurgery,
+                familyMedicalHistory,
             };
 
             const newConsultation =
