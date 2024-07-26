@@ -17,6 +17,9 @@
 <img width="1676" alt="Screenshot 2024-07-26 at 6 13 54 PM" src="https://github.com/user-attachments/assets/0798426a-69c5-4bc8-b73e-34e6d8ac3f13">
 <img width="1675" alt="Screenshot 2024-07-26 at 6 14 10 PM" src="https://github.com/user-attachments/assets/5842872f-98aa-4c0f-ab5f-6f3ece409b79">
 
+![Screenshot 2024-07-26 at 10 01 42 PM](https://github.com/user-attachments/assets/b9443c87-0b83-42ec-9a66-3cbb7040d36d)
+
+
 
 ### BackEnd_URL: https://online-prescription-api.onrender.com/
 
@@ -29,10 +32,7 @@
 - [Tech Stack](#tech-stack)
 - [Setup](#setup)
 - [Usage](#usage)
-- [Folder Structure](#folder-structure)
 - [API Endpoints](#api-endpoints)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Overview
 The Online Prescription Platform allows patients to connect with doctors seamlessly. Patients can sign up, view a list of doctors, and consult with them through a user-friendly interface. Doctors can sign up, provide their details, and offer consultations to patients.
@@ -66,20 +66,19 @@ The Online Prescription Platform allows patients to connect with doctors seamles
 ## Setup
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-repo/online-prescription-platform.git
-    cd online-prescription-platform
+    git clone https://github.com/Zahid-Sarang/online-prescription-api.git
+    cd online-prescription-api
+    npm install
+    npm run dev
     ```
 
 2. Install dependencies for both frontend and backend:
     ```bash
     # For frontend
-    cd frontend
+     git clone https://github.com/Zahid-Sarang/online-prescription-ui.git
+    cd online-prescription-ui
     npm install
-
-    # For backend
-    cd ../backend
-    npm install
-    ```
+        npm run dev
 
 3. Configure environment variables:
     - Create a `.env` file in the `backend` directory and add the following variables:
@@ -90,17 +89,6 @@ The Online Prescription Platform allows patients to connect with doctors seamles
       AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key
       S3_BUCKET_NAME=your_s3_bucket_name
       ```
-
-4. Start the development servers:
-    ```bash
-    # Start backend
-    cd backend
-    npm run dev
-
-    # Start frontend
-    cd ../frontend
-    npm run dev
-    ```
 
 ## Usage
 1. Access the application through the following URLs:
