@@ -22,4 +22,15 @@ router.get(
         consultationContoller.getConsultation(req as AuthRequest, res, next),
 );
 
+router.get(
+    "/:consultId",
+    authenticate,
+    (req: Request, res: Response, next: NextFunction) =>
+        consultationContoller.getPatientConsultations(
+            req as AuthRequest,
+            res,
+            next,
+        ),
+);
+
 export default router;

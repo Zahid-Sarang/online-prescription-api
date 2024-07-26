@@ -1,4 +1,4 @@
-import { NextFunction, Response } from "express";
+import { NextFunction, Response, Request } from "express";
 import { AuthRequest, ConsultationRequest } from "../types";
 import { ConsultationService } from "../services/Consultation";
 import createHttpError from "http-errors";
@@ -60,8 +60,29 @@ export class ConsultationController {
             }
 
             const consultationData =
-                await this.consultationService.getConsultation(doctorId);
+                await this.consultationService.getConsultationsByDoctor(
+                    doctorId,
+                );
             res.json(consultationData);
+        } catch (err) {
+            next(err);
+        }
+    }
+
+    async getPatientConsultations(
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ) {
+        try {
+            const { consultId } = req.params;
+            if (!consultId) {
+                return next(createHttpError(400, "Invalid ConsultId"));
+            }
+
+            const consultation =
+                await this.consultationService.getConsultationsById(consultId);
+            res.json(consultation);
         } catch (err) {
             next(err);
         }

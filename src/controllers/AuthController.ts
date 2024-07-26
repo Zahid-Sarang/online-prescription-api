@@ -193,7 +193,22 @@ export class AuthController {
                 return res.status(404).json({ message: "User not found" });
             }
 
-            res.json(userInfo);
+            const finalUsers = {
+                _id: userInfo._id,
+                profilePicture: this.storage.getObjectUri(
+                    userInfo.profilePicture!,
+                ),
+                name: userInfo.name,
+                email: userInfo.email,
+                phoneNumber: userInfo.phoneNumber,
+                age: userInfo.age,
+                historyOfSurgery: userInfo.historyOfSurgery,
+                historyOfIllness: userInfo.historyOfIllness,
+                role: userInfo.role,
+                specialty: userInfo.specialty,
+                yearsOfExperience: userInfo.yearsOfExperience,
+            };
+            res.json(finalUsers);
         } catch (err) {
             next(err);
         }
@@ -245,7 +260,7 @@ export class AuthController {
             const usersList = await this.userService.getUsersList();
 
             const finalUsers = usersList.map((user: IUser) => {
-                const userObj = user.toObject() as IUser; // Convert Mongoose document to plain object
+                const userObj = user.toObject() as IUser;
 
                 return {
                     _id: userObj._id,
